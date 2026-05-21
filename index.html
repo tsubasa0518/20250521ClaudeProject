@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Disney Magic Events | 夢と魔法のイベント情報</title>
+  <meta name="description" content="東京ディズニーリゾートの最新イベント情報。ハロウィーン、クリスマス、イースターなど年間イベントをご紹介。" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Stars Background -->
+<div class="stars-bg"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <svg class="nav-logo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="12" fill="#c8a951" opacity="0.9"/>
+        <circle cx="12" cy="13" r="7" fill="#c8a951" opacity="0.8"/>
+        <circle cx="36" cy="13" r="7" fill="#c8a951" opacity="0.8"/>
+        <circle cx="24" cy="24" r="8" fill="#001e4d"/>
+        <path d="M20 22 Q24 18 28 22 Q26 28 24 30 Q22 28 20 22Z" fill="#c8a951" opacity="0.6"/>
+      </svg>
+      <div>
+        <div class="nav-logo-text">Disney Magic Events</div>
+        <div class="nav-logo-sub">夢と魔法のイベント情報</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">ホーム</a></li>
+      <li><a href="events.html">イベント一覧</a></li>
+      <li><a href="calendar.html">カレンダー</a></li>
+      <li><a href="sweets.html">スイーツ</a></li>
+      <li><a href="events.html" class="nav-cta btn">チケット情報</a></li>
+    </ul>
+    <div class="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <svg class="castle-silhouette" aria-hidden="true"></svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">✦ 2026 Season ✦</div>
+    <h1 class="hero-title">Magic Awaits<br>You Here</h1>
+    <p class="hero-subtitle">夢と魔法の世界へようこそ</p>
+    <p class="hero-tagline">Tokyo Disney Resort Events</p>
+    <div class="hero-buttons">
+      <a href="events.html" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 6l4-4 4 4"/><path d="M12 2v10.5"/><rect x="3" y="12" width="18" height="9" rx="2"/></svg>
+        イベントを見る
+      </a>
+      <a href="calendar.html" class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        カレンダーで確認
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Countdown Section -->
+<section class="countdown-section">
+  <div class="countdown-wrapper fade-up">
+    <div class="countdown-label" id="countdown-label">次のイベントまで</div>
+    <h2 class="countdown-event-name" id="countdown-event-name">読み込み中...</h2>
+    <div class="countdown-grid" id="countdown-container">
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-days">00</div>
+        <div class="countdown-unit">日</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-hours">00</div>
+        <div class="countdown-unit">時間</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-mins">00</div>
+        <div class="countdown-unit">分</div>
+      </div>
+      <div class="countdown-separator">:</div>
+      <div class="countdown-item">
+        <div class="countdown-number" id="cd-secs">00</div>
+        <div class="countdown-unit">秒</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Events Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">✦ Featured Events ✦</div>
+      <h2 class="section-title">注目のイベント</h2>
+      <p class="section-desc">年間を通じて開催される、夢と魔法のスペシャルイベントをご紹介します。</p>
+    </div>
+    <div class="events-grid" id="events-grid"></div>
+  </div>
+</section>
+
+<div class="divider container"><span class="divider-icon">✦</span></div>
+
+<!-- Sweets Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">✦ Disney Sweets ✦</div>
+      <h2 class="section-title">魔法のスイーツ</h2>
+      <p class="section-desc">各イベント限定の特別なスイーツ＆グルメをご紹介。見ているだけでも魔法にかかりそう。</p>
+    </div>
+    <div class="sweets-grid" id="sweets-grid"></div>
+    <div style="text-align:center;margin-top:40px;" class="fade-up">
+      <a href="sweets.html" class="btn btn-secondary">スイーツ一覧を見る →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider container"><span class="divider-icon">✦</span></div>
+
+<!-- Calendar Preview -->
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">✦ Event Calendar ✦</div>
+      <h2 class="section-title">イベントカレンダー</h2>
+      <p class="section-desc">月別でイベントの開催日程を確認できます。</p>
+    </div>
+    <div class="calendar-wrapper fade-up">
+      <div class="calendar-header">
+        <button class="calendar-nav" id="cal-prev">&#8249;</button>
+        <h3 class="calendar-month-title" id="calendar-month-title"></h3>
+        <button class="calendar-nav" id="cal-next">&#8250;</button>
+      </div>
+      <div class="calendar-grid">
+        <div class="calendar-weekdays">
+          <div class="calendar-weekday" style="color:#e57373">日</div>
+          <div class="calendar-weekday">月</div>
+          <div class="calendar-weekday">火</div>
+          <div class="calendar-weekday">水</div>
+          <div class="calendar-weekday">木</div>
+          <div class="calendar-weekday">金</div>
+          <div class="calendar-weekday" style="color:#64b5f6">土</div>
+        </div>
+        <div class="calendar-days" id="calendar-days"></div>
+      </div>
+      <div class="calendar-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--disney-gold)"></div>
+          イベント開催日
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--disney-blue)"></div>
+          今日
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;" class="fade-up">
+      <a href="calendar.html" class="btn btn-secondary">カレンダー全体を見る →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Event Modal -->
+<div class="modal-overlay" id="event-modal-overlay">
+  <div class="modal">
+    <div class="modal-hero">
+      <span class="modal-hero-emoji" style="font-size:80px"></span>
+      <button class="modal-close" onclick="closeEventModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-season"></div>
+      <h2 class="modal-title"></h2>
+      <p class="modal-desc"></p>
+      <div class="modal-info-grid">
+        <div class="modal-info-item">
+          <div class="modal-info-label">開始日</div>
+          <div class="modal-info-value modal-start"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-info-label">終了日</div>
+          <div class="modal-info-value modal-end"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-info-label">開催パーク</div>
+          <div class="modal-info-value modal-location"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-info-label">ステータス</div>
+          <div class="modal-info-value modal-status"></div>
+        </div>
+      </div>
+      <div class="modal-highlights">
+        <h4>ハイライト</h4>
+        <ul class="modal-highlight-list modal-highlights-list"></ul>
+      </div>
+      <a href="events.html" class="btn btn-primary" style="width:100%;justify-content:center;">詳細を見る</a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Disney Magic Events</div>
+        <p class="footer-brand-desc">東京ディズニーリゾートの年間イベント情報を、わかりやすくお届けするファンサイトです。</p>
+      </div>
+      <div>
+        <div class="footer-col-title">イベント</div>
+        <ul class="footer-links">
+          <li><a href="events.html">イベント一覧</a></li>
+          <li><a href="calendar.html">カレンダー</a></li>
+          <li><a href="sweets.html">スイーツ情報</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">シーズン</div>
+        <ul class="footer-links">
+          <li><a href="events.html">スプリング</a></li>
+          <li><a href="events.html">サマー</a></li>
+          <li><a href="events.html">ハロウィーン</a></li>
+          <li><a href="events.html">クリスマス</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">情報</div>
+        <ul class="footer-links">
+          <li><a href="#">アクセス</a></li>
+          <li><a href="#">チケット</a></li>
+          <li><a href="#">よくある質問</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">© 2026 Disney Magic Events Fan Site. All rights reserved.</div>
+      <div class="footer-disclaimer">※ このサイトはファンが制作した非公式サイトです。公式情報は東京ディズニーリゾート公式サイトをご確認ください。</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" aria-label="ページトップへ">↑</button>
+
+<script src="js/main.js"></script>
+</body>
+</html>

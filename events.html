@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>イベント一覧 | Disney Magic Events</title>
+  <meta name="description" content="東京ディズニーリゾートで開催される全イベントの一覧。シーズン別フィルターで絞り込み可能。" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .events-page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .event-detail-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+    .event-detail-card:hover {
+      border-color: rgba(200, 169, 81, 0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .event-timeline {
+      max-width: 800px;
+      margin: 0 auto 80px;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 48px;
+      bottom: -32px;
+      width: 2px;
+      background: linear-gradient(to bottom, rgba(200,169,81,0.5), transparent);
+    }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(200, 169, 81, 0.15);
+      border: 2px solid rgba(200, 169, 81, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .timeline-content {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px 24px;
+    }
+    .timeline-period {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--disney-gold);
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .timeline-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+    }
+    .tag-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .tag-bar span {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 10px;
+      background: rgba(200,169,81,0.15);
+      color: var(--disney-gold-light);
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars-bg"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <svg class="nav-logo-icon" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="12" fill="#c8a951" opacity="0.9"/>
+        <circle cx="12" cy="13" r="7" fill="#c8a951" opacity="0.8"/>
+        <circle cx="36" cy="13" r="7" fill="#c8a951" opacity="0.8"/>
+        <circle cx="24" cy="24" r="8" fill="#001e4d"/>
+        <path d="M20 22 Q24 18 28 22 Q26 28 24 30 Q22 28 20 22Z" fill="#c8a951" opacity="0.6"/>
+      </svg>
+      <div>
+        <div class="nav-logo-text">Disney Magic Events</div>
+        <div class="nav-logo-sub">夢と魔法のイベント情報</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="events.html" class="active">イベント一覧</a></li>
+      <li><a href="calendar.html">カレンダー</a></li>
+      <li><a href="sweets.html">スイーツ</a></li>
+      <li><a href="events.html" class="nav-cta btn">チケット情報</a></li>
+    </ul>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="page-hero-title fade-up">イベント一覧</div>
+  <p class="page-hero-desc fade-up">2026年の東京ディズニーリゾートで開催される、すべてのスペシャルイベントをご覧いただけます。</p>
+</section>
+
+<!-- Events Section -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <!-- Filter Tabs -->
+    <div class="filter-tabs fade-up">
+      <button class="filter-tab active" data-filter="all">すべて</button>
+      <button class="filter-tab" data-filter="ongoing">開催中</button>
+      <button class="filter-tab" data-filter="upcoming">近日開幕</button>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="events-grid" id="events-grid"></div>
+  </div>
+</section>
+
+<div class="divider container"><span class="divider-icon">✦</span></div>
+
+<!-- Timeline Section -->
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="section-tag">✦ 2026 Schedule ✦</div>
+      <h2 class="section-title">年間スケジュール</h2>
+      <p class="section-desc">2026年のディズニーイベント年間スケジュールをご確認ください。</p>
+    </div>
+    <div class="event-timeline">
+      <div class="timeline-item fade-up">
+        <div class="timeline-icon">🐣</div>
+        <div class="timeline-content">
+          <div class="timeline-period">3月20日 〜 5月20日</div>
+          <div class="timeline-title">ディズニー・イースター 2026</div>
+          <p class="timeline-desc">カラフルなイースターエッグとうさぎキャラクターが主役の春のお祭り。パステルカラーに彩られたパーク内をお楽しみください。</p>
+          <div class="tag-bar"><span>東京ディズニーシー</span><span>開催中</span></div>
+        </div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-icon">🌸</div>
+        <div class="timeline-content">
+          <div class="timeline-period">4月1日 〜 6月10日</div>
+          <div class="timeline-title">ディズニー・スプリング・カーニバル</div>
+          <p class="timeline-desc">花と魔法の春のカーニバル。ミッキーとミニーが春の衣装をまとい、華やかなパレードでお出迎え。</p>
+          <div class="tag-bar"><span>東京ディズニーランド</span><span>近日開幕</span></div>
+        </div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-icon">🎆</div>
+        <div class="timeline-content">
+          <div class="timeline-period">7月1日 〜 8月31日</div>
+          <div class="timeline-title">ディズニー・サマー・スプラッシュ</div>
+          <p class="timeline-desc">水と音楽の夏フェスタ。毎夜の花火ショーや夏限定ウォータースペクタキュラーが夏の夜を彩ります。</p>
+          <div class="tag-bar"><span>東京ディズニーシー</span><span>近日開幕</span></div>
+        </div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-icon">🎃</div>
+        <div class="timeline-content">
+          <div class="timeline-period">9月8日 〜 11月1日</div>
+          <div class="timeline-title">ディズニー・ハロウィーン 2026</div>
+          <p class="timeline-desc">ヴィランズが夜のパークを支配するスリリングなハロウィーン。仮装して参加できる特別なコスチュームデーも開催。</p>
+          <div class="tag-bar"><span>東京ディズニーランド</span><span>近日開幕</span></div>
+        </div>
+      </div>
+      <div class="timeline-item fade-up">
+        <div class="timeline-icon">🎄</div>
+        <div class="timeline-content">
+          <div class="timeline-period">11月10日 〜 12月25日</div>
+          <div class="timeline-title">ディズニー・クリスマス 2026</div>
+          <p class="timeline-desc">雪と光のウィンターワンダーランド。無数のイルミネーションとクリスマスパレードが感動的な体験をお届けします。</p>
+          <div class="tag-bar"><span>東京ディズニーリゾート</span><span>近日開幕</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Event Modal -->
+<div class="modal-overlay" id="event-modal-overlay">
+  <div class="modal">
+    <div class="modal-hero">
+      <span class="modal-hero-emoji" style="font-size:80px"></span>
+      <button class="modal-close" onclick="closeEventModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-season"></div>
+      <h2 class="modal-title"></h2>
+      <p class="modal-desc"></p>
+      <div class="modal-info-grid">
+        <div class="modal-info-item">
+          <div class="modal-info-label">開始日</div>
+          <div class="modal-info-value modal-start"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-info-label">終了日</div>
+          <div class="modal-info-value modal-end"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-info-label">開催パーク</div>
+          <div class="modal-info-value modal-location"></div>
+        </div>
+        <div class="modal-info-item">
+          <div class="modal-info-label">ステータス</div>
+          <div class="modal-info-value modal-status"></div>
+        </div>
+      </div>
+      <div class="modal-highlights">
+        <h4>ハイライト</h4>
+        <ul class="modal-highlight-list modal-highlights-list"></ul>
+      </div>
+      <button class="btn btn-primary" onclick="closeEventModal()" style="width:100%;justify-content:center;cursor:pointer;">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Disney Magic Events</div>
+        <p class="footer-brand-desc">東京ディズニーリゾートの年間イベント情報を、わかりやすくお届けするファンサイトです。</p>
+      </div>
+      <div>
+        <div class="footer-col-title">イベント</div>
+        <ul class="footer-links">
+          <li><a href="events.html">イベント一覧</a></li>
+          <li><a href="calendar.html">カレンダー</a></li>
+          <li><a href="sweets.html">スイーツ情報</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">シーズン</div>
+        <ul class="footer-links">
+          <li><a href="#">スプリング</a></li>
+          <li><a href="#">サマー</a></li>
+          <li><a href="#">ハロウィーン</a></li>
+          <li><a href="#">クリスマス</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">情報</div>
+        <ul class="footer-links">
+          <li><a href="#">アクセス</a></li>
+          <li><a href="#">チケット</a></li>
+          <li><a href="#">よくある質問</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">© 2026 Disney Magic Events Fan Site. All rights reserved.</div>
+      <div class="footer-disclaimer">※ このサイトはファンが制作した非公式サイトです。</div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" aria-label="ページトップへ">↑</button>
+
+<script src="js/main.js"></script>
+</body>
+</html>
