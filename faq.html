@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ よくある質問 | Disney Magic Events</title>
+  <meta name="description" content="東京ディズニーリゾートに初めて行く人向けのよくある質問まとめ。チケット・アプリ・アトラクション・レストランなど幅広く解説。" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ===== FAQ ACCORDION ===== */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .faq-item.open {
+      border-color: rgba(200, 169, 81, 0.45);
+      box-shadow: 0 4px 24px rgba(200, 169, 81, 0.08);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s ease;
+    }
+
+    .faq-question:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .faq-item.open .faq-question {
+      background: rgba(200, 169, 81, 0.06);
+      border-bottom: 1px solid rgba(200, 169, 81, 0.15);
+    }
+
+    .faq-q-badge {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(200, 169, 81, 0.15);
+      border: 1px solid rgba(200, 169, 81, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--disney-gold);
+    }
+
+    .faq-item.open .faq-q-badge {
+      background: var(--disney-gold);
+      color: var(--disney-navy);
+    }
+
+    .faq-q-text {
+      flex: 1;
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.5;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      color: var(--disney-gold);
+      transition: transform 0.35s ease;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+    }
+
+    .faq-answer-inner {
+      padding: 0 24px 20px 72px;
+    }
+
+    .faq-a-label {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--disney-gold);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .faq-a-text {
+      font-size: 14px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.85;
+    }
+
+    /* ===== CATEGORY DIVIDER ===== */
+    .faq-category {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 16px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .faq-category:first-of-type {
+      margin-top: 0;
+    }
+
+    .faq-category-icon {
+      font-size: 20px;
+    }
+
+    .faq-category-name {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      color: var(--disney-gold-light);
+      letter-spacing: 1px;
+    }
+
+    .faq-category-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(200,169,81,0.3), transparent);
+    }
+
+    /* ===== OFFICIAL LINK BANNER ===== */
+    .official-banner {
+      max-width: 800px;
+      margin: 48px auto 0;
+      background: rgba(200,169,81,0.07);
+      border: 1px solid rgba(200,169,81,0.3);
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .official-banner-info h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 17px;
+      margin-bottom: 6px;
+      color: var(--disney-gold-light);
+    }
+
+    .official-banner-info p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    /* ===== BACK BUTTON ===== */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px;
+      transition: all 0.25s ease;
+      margin-bottom: 40px;
+    }
+
+    .back-btn:hover {
+      color: var(--disney-gold-light);
+      border-color: rgba(200,169,81,0.5);
+      background: rgba(200,169,81,0.07);
+    }
+
+    /* ===== COUNTER ===== */
+    .faq-counter {
+      max-width: 800px;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .faq-total {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .faq-expand-all {
+      background: transparent;
+      border: 1px solid rgba(200,169,81,0.3);
+      color: var(--disney-gold);
+      font-size: 12px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Noto Sans JP', sans-serif;
+      transition: all 0.2s ease;
+    }
+
+    .faq-expand-all:hover {
+      background: rgba(200,169,81,0.1);
+      border-color: var(--disney-gold);
+    }
+  </style>
+</head>
+<body>
+
+<div class="stars-bg"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <svg class="nav-logo-icon" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="12" fill="#c8a951" opacity="0.9"/>
+        <circle cx="12" cy="13" r="7" fill="#c8a951" opacity="0.8"/>
+        <circle cx="36" cy="13" r="7" fill="#c8a951" opacity="0.8"/>
+        <circle cx="24" cy="24" r="8" fill="#001e4d"/>
+        <path d="M20 22 Q24 18 28 22 Q26 28 24 30 Q22 28 20 22Z" fill="#c8a951" opacity="0.6"/>
+      </svg>
+      <div>
+        <div class="nav-logo-text">Disney Magic Events</div>
+        <div class="nav-logo-sub">夢と魔法のイベント情報</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">ホーム</a></li>
+      <li><a href="events.html">イベント一覧</a></li>
+      <li><a href="calendar.html">カレンダー</a></li>
+      <li><a href="sweets.html">スイーツ</a></li>
+      <li><a href="ticket.html" class="nav-cta btn">チケット情報</a></li>
+    </ul>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="page-hero-title fade-up">よくある質問</div>
+  <p class="page-hero-desc fade-up">初めて行く人向け よくある質問まとめ</p>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container" style="max-width:900px">
+
+    <!-- Back button -->
+    <a href="index.html" class="back-btn fade-up">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      ホームへ戻る
+    </a>
+
+    <!-- Counter + expand all -->
+    <div class="faq-counter fade-up">
+      <span class="faq-total">全 12 項目</span>
+      <button class="faq-expand-all" id="expand-all-btn">すべて開く</button>
+    </div>
+
+    <!-- Category: チケット -->
+    <div class="faq-category fade-up">
+      <span class="faq-category-icon">🎟</span>
+      <span class="faq-category-name">チケット</span>
+      <div class="faq-category-line"></div>
+    </div>
+
+    <div class="faq-list" id="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">チケットは事前購入が必要？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">基本的にはオンラインでの事前購入が推奨されています。公式サイトやアプリから購入可能で、来園日の2か月前から予約できます。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">チケットの日付変更はできる？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">可能です。指定入園日を過ぎても、有効期限内であれば日付変更できる場合があります。チケット種別によって条件が異なります。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">チケットの有効期限は？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">購入方法によって異なります。オンライン購入は通常、購入日から1年間です。コンビニ・旅行会社で購入した場合は、指定入園日から約1か月です。ただし、期間限定チケットは短い場合があります。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">再入園はできる？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">可能です。開園から閉園まで再入園できます。再入園時にはパークチケット提示が必要です。</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /faq-list -->
+
+    <!-- Category: アプリ・サービス -->
+    <div class="faq-category fade-up" style="margin-top:32px">
+      <span class="faq-category-icon">📱</span>
+      <span class="faq-category-name">アプリ・サービス</span>
+      <div class="faq-category-line"></div>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">東京ディズニーリゾート・アプリは必要？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">かなり重要です。チケット表示、プライオリティパス取得、ディズニープレミアアクセス購入、モバイルオーダー、待ち時間確認に利用されます。事前ログイン推奨です。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">ディズニープレミアアクセスとは？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">有料で待ち時間を短縮できるサービスです。人気アトラクションやショーを短時間で利用できます。アプリから購入します。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">プライオリティパスとは？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">無料で待ち時間を短縮できるサービスです。対象アトラクションの利用時間を指定して取得します。取得にはアプリが必要です。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Category: アトラクション -->
+    <div class="faq-category fade-up" style="margin-top:32px">
+      <span class="faq-category-icon">🎢</span>
+      <span class="faq-category-name">アトラクション</span>
+      <div class="faq-category-line"></div>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">子どもが乗れないアトラクションの場合、親はどうなる？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">「交代利用サービス」があります。保護者が交代でアトラクションを利用でき、2回並び直さなくてよい仕組みです。キャストに事前相談が必要です。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Category: グルメ -->
+    <div class="faq-category fade-up" style="margin-top:32px">
+      <span class="faq-category-icon">🍽</span>
+      <span class="faq-category-name">グルメ・レストラン</span>
+      <div class="faq-category-line"></div>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">レストラン予約はできる？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">可能です。「プライオリティ・シーティング」で事前予約できます。通常、来園1か月前から受付されます。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">食物アレルギー対応はある？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">あります。特定原材料表示や特別メニュー対応があります。ホテルでは専用プレートやカレーも提供されています。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Category: 当日準備 -->
+    <div class="faq-category fade-up" style="margin-top:32px">
+      <span class="faq-category-icon">🎒</span>
+      <span class="faq-category-name">当日の準備・混雑対策</span>
+      <div class="faq-category-line"></div>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">パーク入園時に必要なものは？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">主に、パークチケット、アプリ、MyDisneyアカウント、モバイルバッテリーです。アプリ使用前提のサービスが多いため、スマホ準備が重要です。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-q-badge">Q</span>
+          <span class="faq-q-text">混雑を避けるにはどうすればいい？</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <span class="faq-a-label">Answer</span>
+            <p class="faq-a-text">公式FAQではありませんが、関連公式案内では早朝到着が推奨されています。開園前から並ぶことで、人気アトラクションの待ち時間を短縮しやすくなります。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Official FAQ banner -->
+    <div class="official-banner fade-up">
+      <div class="official-banner-info">
+        <h3>🏰 東京ディズニーリゾート 公式FAQ</h3>
+        <p>より詳しい情報や最新情報は、公式サイトのFAQページをご確認ください。</p>
+      </div>
+      <a href="https://faq.tokyodisneyresort.jp/" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        公式FAQを見る
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Disney Magic Events</div>
+        <p class="footer-brand-desc">東京ディズニーリゾートの年間イベント情報をお届けするファンサイトです。</p>
+      </div>
+      <div>
+        <div class="footer-col-title">コンテンツ</div>
+        <ul class="footer-links">
+          <li><a href="index.html">ホーム</a></li>
+          <li><a href="events.html">イベント一覧</a></li>
+          <li><a href="calendar.html">カレンダー</a></li>
+          <li><a href="sweets.html">スイーツ</a></li>
+          <li><a href="ticket.html">チケット情報</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">シーズン</div>
+        <ul class="footer-links">
+          <li><a href="events.html">スプリング</a></li>
+          <li><a href="events.html">サマー</a></li>
+          <li><a href="events.html">ハロウィーン</a></li>
+          <li><a href="events.html">クリスマス</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">情報</div>
+        <ul class="footer-links">
+          <li><a href="#">アクセス</a></li>
+          <li><a href="ticket.html">チケット</a></li>
+          <li><a href="faq.html">よくある質問</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">© 2026 Disney Magic Events Fan Site. All rights reserved.</div>
+      <div class="footer-disclaimer">※ このサイトはファンが制作した非公式サイトです。</div>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" aria-label="ページトップへ">↑</button>
+
+<script src="js/main.js"></script>
+<script>
+  // Accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // Expand / Collapse all
+  const expandBtn = document.getElementById('expand-all-btn');
+  if (expandBtn) {
+    let allOpen = false;
+    expandBtn.addEventListener('click', () => {
+      allOpen = !allOpen;
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.toggle('open', allOpen);
+        item.querySelector('.faq-question').setAttribute('aria-expanded', String(allOpen));
+      });
+      expandBtn.textContent = allOpen ? 'すべて閉じる' : 'すべて開く';
+    });
+  }
+</script>
+</body>
+</html>
