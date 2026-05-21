@@ -477,7 +477,7 @@ function initSlideshow() {
   }
 
   function startAuto() {
-    timer = setInterval(() => goTo(current + 1), 1500);
+    timer = setInterval(() => goTo(current + 1), 5000);
   }
 
   function stopAuto() {
