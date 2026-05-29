@@ -34,6 +34,38 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
+    .news-progress-wrap {
+      width: 240px;
+      max-width: 85vw;
+      height: 3px;
+      background: rgba(200, 169, 81, 0.18);
+      border-radius: 2px;
+      margin: 32px auto 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .news-progress-bar {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg,
+        rgba(200,169,81,0) 0%,
+        rgba(240,208,128,0.9) 48%,
+        rgba(200,169,81,0) 100%);
+      animation: news-slide 2.4s ease-in-out infinite;
+    }
+
+    @keyframes news-slide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .news-progress-bar {
+        animation-duration: 8s;
+      }
+    }
   </style>
 </head>
 <body>
@@ -71,6 +103,9 @@
 <main class="news-main">
   <div class="news-content">
     <p class="news-wip">作成中・・・</p>
+    <div class="news-progress-wrap">
+      <div class="news-progress-bar"></div>
+    </div>
   </div>
 </main>
 
