@@ -478,6 +478,7 @@ function initActivityCarousel() {
   let didDrag = false;
   let dragStartX = 0;
   let dragStartScroll = 0;
+  let pendingCard = null;
   const DRAG_THRESHOLD = 5;
   const SPEED = 0.4; // px per RAF frame (~24 px/s at 60 fps)
 
@@ -509,6 +510,7 @@ function initActivityCarousel() {
       didDrag       = false;
       dragStartX    = e.clientX;
       dragStartScroll = scrollPos;
+      pendingCard   = e.target.closest('.activity-card[data-index]');
       try { wrap.setPointerCapture(e.pointerId); } catch (_) {}
       wrap.style.cursor = 'grabbing';
     });
@@ -534,17 +536,20 @@ function initActivityCarousel() {
 
     ['pointerup', 'pointercancel', 'mouseleave'].forEach(ev =>
       wrap.addEventListener(ev, endDrag));
+
+    // card click — on PC, setPointerCapture redirects pointerup to wrap so the browser fires
+    // click on wrap (not the card), bypassing track's listener; pendingCard restores the target
+    wrap.addEventListener('click', (e) => {
+      if (didDrag) return;
+      const card = e.target.closest('.activity-card[data-index]') ?? pendingCard;
+      pendingCard = null;
+      if (!card || card.getAttribute('aria-hidden') === 'true') return;
+      const idx = parseInt(card.dataset.index, 10);
+      if (Number.isFinite(idx) && activityItems[idx]) openActivityModal(activityItems[idx]);
+    });
   }
 
-  // --- card click / keyboard ---
-  track.addEventListener('click', (e) => {
-    if (didDrag) return;
-    const card = e.target.closest('.activity-card[data-index]');
-    if (!card || card.getAttribute('aria-hidden') === 'true') return;
-    const idx = parseInt(card.dataset.index, 10);
-    if (Number.isFinite(idx) && activityItems[idx]) openActivityModal(activityItems[idx]);
-  });
-
+  // --- keyboard ---
   track.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter' && e.key !== ' ') return;
     const card = e.target.closest('.activity-card[data-index]');
